@@ -20,6 +20,14 @@ public class Board implements FileIO {
         }
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
     public Square getSquare(int h, int w) {
         return board[h][w];
     }

@@ -12,7 +12,6 @@ public class Game implements FileIO {
         this.correctColoring = correctColoring;
         this.currentColoring = currentColoring;
     }
-
     public Board getCurrentColoring() {
         return currentColoring;
     }
@@ -20,4 +19,5 @@ public class Game implements FileIO {
     public Board getCorrectColoring() {
         return correctColoring;
     }
+
 }

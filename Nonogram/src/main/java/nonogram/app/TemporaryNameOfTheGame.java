@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Board;
+import model.SquareState;
 
 import java.io.IOException;
 
@@ -21,7 +22,7 @@ public class TemporaryNameOfTheGame extends Application {
 
     public static void main(String[] args) {
         Board board = new Board(5, 5);
-        if(board.getSquare(0, 0).isBlank()) {
+        if(board.getSquare(0, 0).getState()== SquareState.UNKNOWN) {
             board.getSquare(0, 0).setColor(Color.TEAL);
         }
         System.out.println(board.getSquare(0, 0).getColor());

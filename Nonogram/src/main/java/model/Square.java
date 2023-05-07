@@ -7,7 +7,7 @@ A pair-like class representing a square, asserting that each square isn't blank 
  */
 public class Square {
     private Color color;
-    private boolean blank = true;
+    private SquareState state=SquareState.UNKNOWN;
 
     public Square() {}
     public Square(Square square) {
@@ -15,21 +15,25 @@ public class Square {
                 square.getColor().getGreen(),
                 square.getColor().getBlue(),
                 square.getColor().getOpacity());
-        blank = square.isBlank();
+        state = square.getState();
     }
 
-    public void setBlank() {
+    public void setUnknown() {
         color = null;
-        blank = true;
+        state=SquareState.UNKNOWN;
     }
 
+    public void setEmpty(){
+        color=null;
+        state=SquareState.EMPTY;
+    }
     public void setColor(Color color) {
         this.color = color;
-        blank = false;
+        state = SquareState.COLORED;
     }
 
-    public boolean isBlank() {
-        return blank;
+    public SquareState getState() {
+        return state;
     }
 
     public Color getColor() {
@@ -41,6 +45,6 @@ public class Square {
         if(!(obj instanceof Square)) {
             return false;
         }
-        return color.equals(((Square) obj).getColor()) && blank == ((Square) obj).isBlank();
+        return color.equals(((Square) obj).getColor()) && state == ((Square) obj).getState();
     }
 }
