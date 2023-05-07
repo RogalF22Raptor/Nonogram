@@ -1,8 +1,8 @@
-module app.nonogram {
+module nonogram.nonogram {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens app.nonogram to javafx.fxml;
-    exports app.nonogram;
+    opens nonogram.app to javafx.fxml;
+    exports nonogram.app;
 }
