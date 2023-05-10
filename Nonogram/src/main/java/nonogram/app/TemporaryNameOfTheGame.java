@@ -9,6 +9,8 @@ import model.Board;
 import model.Game;
 import model.Square;
 import model.SquareState;
+import viewmodel.PlayViewModel;
+import viewmodel.ViewModel;
 
 import java.io.IOException;
 
@@ -28,8 +30,12 @@ public class TemporaryNameOfTheGame extends Application {
         Board board = new Board(5, 5);
         board.getSquare(0, 0).setColor(Color.RED);
         board.getSquare(4, 4).setEmpty();
-
         Game game = new Game(board, new Board(5, 5));
+        PlayViewModel v = new PlayViewModel(game);
+        System.out.println(v.isComplete());
+        v.changeTool(SquareState.COLORED,Color.RED);
+        v.makeMove(0,0);
+        System.out.println(v.isComplete());
         game.saveToFile("files/level1");
 
         launch();

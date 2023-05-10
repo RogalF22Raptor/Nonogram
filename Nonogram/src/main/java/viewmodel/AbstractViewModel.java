@@ -5,10 +5,11 @@ import model.Board;
 import model.Game;
 import model.SquareState;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractViewModel {
+public abstract class AbstractViewModel implements ViewModel{
     protected Game game;
     protected Tool tool;
     protected List<Color> allowedColors;
@@ -34,30 +35,35 @@ public abstract class AbstractViewModel {
         if(s==SquareState.EMPTY) tool=new EmptyTool();
         if(s==SquareState.UNKNOWN) tool=new UnknownTool();
     }
-    protected List<Clue> evaluateRow(int row){
+    protected List<Clue> evaluateRow(Board b,int row){
         List<Clue> res=new ArrayList<>();
-        for(int i=0;i<getCurrentColoring().getWidth();){
-            while(i<getCurrentColoring().getWidth()&&
-                    getCurrentColoring().getSquare(row,i).getState()!=SquareState.COLORED) i++;
+        for(int i=0;i<b.getWidth();){
+            while(i<b.getWidth()&&
+                    b.getSquare(row,i).getState()!=SquareState.COLORED) i++;
+            if(i==b.getWidth()) break;
             int counter=0;
-            Color c= getCurrentColoring().getSquare(row,i).getColor();
-            while(i<getCurrentColoring().getWidth()&&
-                    getCurrentColoring().getSquare(row,i).getColor()==c) {i++;counter++;}
+            Color c= b.getSquare(row,i).getColor();
+            while(i<b.getWidth()&&
+                    b.getSquare(row,i).getColor()==c) {i++;counter++;}
             if(i!=0) res.add(new Clue(counter,c));
         }
         return res;
     }
-    private List<Clue> evaluateCol(int col){
+    protected List<Clue> evaluateCol(Board b,int col){
         List<Clue> res=new ArrayList<>();
-        for(int i=0;i<getCurrentColoring().getHeight();){
-            while(i<getCurrentColoring().getHeight()&&
-                    getCurrentColoring().getSquare(i,col).getState()!=SquareState.COLORED) i++;
+        for(int i=0;i<b.getHeight();){
+            while(i<b.getHeight()&&
+                    b.getSquare(i,col).getState()!=SquareState.COLORED) i++;
+            if(i==b.getHeight()) break;
             int counter=0;
-            Color c= getCurrentColoring().getSquare(i,col).getColor();
-            while(i<getCurrentColoring().getHeight()&&
-                    getCurrentColoring().getSquare(i,col).getColor()==c) {i++;counter++;}
+            Color c= b.getSquare(i,col).getColor();
+            while(i<b.getHeight()&&
+                    b.getSquare(i,col).getColor()==c) {i++;counter++;}
             if(i!=0) res.add(new Clue(counter,c));
         }
         return res;
+    }
+    public void save(String path) throws IOException {
+        game.saveToFile(path);//TODO Something xdd
     }
 }
