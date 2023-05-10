@@ -4,8 +4,18 @@ package model;
 This class is ONLY a static representation of a board, meant for board editor, file IO etc.
  */
 
+/*
+reads/writes to a specified file.
+*/
+
+import javafx.scene.paint.Color;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+
 public class Board implements FileIO {
-    private final int height, width;
+    private int height, width;
     private Square[][] board;
 
     public Board(int height, int width) {
@@ -20,6 +30,56 @@ public class Board implements FileIO {
         }
     }
 
+    public Board(String path) {
+        readFromFile(path);
+    }
+
+    @Override
+    public void readFromFile(String path) throws CorruptedFile {
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+            }
+            String everything = sb.toString();
+            String[] separateValues = everything.split("\\s+");
+            System.out.println("values: ");
+            for(String str : separateValues) {
+                System.out.println(str);
+            }
+
+            int i = 0;
+            height = Integer.parseInt(separateValues[i++]);
+            width = Integer.parseInt(separateValues[i++]);
+
+            for(int h = 0; h < height; h++) {
+                for(int w = 0; w < width; w++) {
+                    String state = separateValues[i++];
+                    String color = separateValues[i++];
+                    board[h][w] = new Square(SquareState.valueOf(state), Color.valueOf(color));
+                }
+            }
+        } catch (Exception e) {
+            throw new CorruptedFile(path);
+        }
+    }
+
+    @Override
+    public void saveToFile(String path) throws IOException {
+        PrintWriter writer = new PrintWriter(path, StandardCharsets.UTF_8);
+        writer.println(height + " " + width);
+        for(int h = 0; h < height; h++) {
+            for(int w = 0; w < width; w++) {
+                writer.println(board[h][w]);
+            }
+        }
+        writer.close();
+    }
+    
     public int getHeight() {
         return height;
     }

@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Board;
+import model.Game;
+import model.Square;
 import model.SquareState;
 
 import java.io.IOException;
@@ -20,12 +22,16 @@ public class TemporaryNameOfTheGame extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        System.out.println(Color.TEAL);
+        System.out.println(SquareState.UNKNOWN);
         Board board = new Board(5, 5);
-        if(board.getSquare(0, 0).getState()== SquareState.UNKNOWN) {
-            board.getSquare(0, 0).setColor(Color.TEAL);
-        }
-        System.out.println(board.getSquare(0, 0).getColor());
+        board.getSquare(0, 0).setColor(Color.RED);
+        board.getSquare(4, 4).setEmpty();
+
+        Game game = new Game(board, new Board(5, 5));
+        game.saveToFile("files/level1");
+
         launch();
     }
 }

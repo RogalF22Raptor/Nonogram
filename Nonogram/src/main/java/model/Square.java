@@ -6,26 +6,27 @@ import javafx.scene.paint.Color;
 A pair-like class representing a square, asserting that each square isn't blank and colored simultaneously.
  */
 public class Square {
-    private Color color;
-    private SquareState state=SquareState.UNKNOWN;
+    private Color color = Color.BLACK;
+    private SquareState state = SquareState.UNKNOWN;
 
     public Square() {}
     public Square(Square square) {
-        color = new Color(square.getColor().getRed(),
-                square.getColor().getGreen(),
-                square.getColor().getBlue(),
-                square.getColor().getOpacity());
-        state = square.getState();
+        this(square.getState(), square.getColor());
+    }
+
+    public Square(SquareState state, Color color) {
+        this.state = state;
+        this.color = new Color(color.getRed(), color.getGreen(), color.getBlue(), color.getOpacity());
     }
 
     public void setUnknown() {
-        color = null;
-        state=SquareState.UNKNOWN;
+        color = Color.BLACK;
+        state = SquareState.UNKNOWN;
     }
 
     public void setEmpty(){
-        color=null;
-        state=SquareState.EMPTY;
+        color = Color.BLACK;
+        state = SquareState.EMPTY;
     }
     public void setColor(Color color) {
         this.color = color;
@@ -46,5 +47,17 @@ public class Square {
             return false;
         }
         return color.equals(((Square) obj).getColor()) && state == ((Square) obj).getState();
+    }
+
+    @Override
+    public String toString() {
+        String result = state.toString() + ' ';
+        if(color == null) {
+            result += "NONE";
+        }
+        else {
+            result += color.toString();
+        }
+        return result;
     }
 }
