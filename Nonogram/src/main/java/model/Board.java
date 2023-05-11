@@ -15,8 +15,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 
 public class Board implements FileIO {
-    private int height, width;
-    private Square[][] board;
+    protected int height, width;
+    protected Square[][] board;
 
     public Board(int height, int width) {
         this.height = height;

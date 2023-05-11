@@ -43,8 +43,8 @@ public abstract class AbstractViewModel implements ViewModel{
             if(i==b.getWidth()) break;
             int counter=0;
             Color c= b.getSquare(row,i).getColor();
-            while(i<b.getWidth()&&
-                    b.getSquare(row,i).getColor()==c) {i++;counter++;}
+            while(i<b.getWidth()&&b.getSquare(row,i).getState()==SquareState.COLORED&&
+                    b.getSquare(row,i).getColor().equals(c)) {i++;counter++;}
             if(i!=0) res.add(new Clue(counter,c));
         }
         return res;
@@ -57,8 +57,8 @@ public abstract class AbstractViewModel implements ViewModel{
             if(i==b.getHeight()) break;
             int counter=0;
             Color c= b.getSquare(i,col).getColor();
-            while(i<b.getHeight()&&
-                    b.getSquare(i,col).getColor()==c) {i++;counter++;}
+            while(i<b.getHeight()&&b.getSquare(i,col).getState()==SquareState.COLORED&&
+                    b.getSquare(i,col).getColor().equals(c)) {i++;counter++;}
             if(i!=0) res.add(new Clue(counter,c));
         }
         return res;

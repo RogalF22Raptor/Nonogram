@@ -26,4 +26,9 @@ public class Clue {
         }
         return number.equals(((Clue) obj).number)&&color.equals(((Clue) obj).color);
     }
+
+    @Override
+    public String toString() {
+        return number.toString();
+    }
 }

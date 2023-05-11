@@ -5,10 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import model.Board;
-import model.Game;
-import model.Square;
-import model.SquareState;
+import model.*;
 import viewmodel.PlayViewModel;
 import viewmodel.ViewModel;
 
@@ -30,9 +27,12 @@ public class TemporaryNameOfTheGame extends Application {
         Board board = new Board(5, 5);
         board.getSquare(0, 0).setColor(Color.RED);
         board.getSquare(4, 4).setEmpty();
-        Game game = new Game(board, new Board(5, 5));
+        Game game = new Game(new RandomBoard(5,5), new Board(5, 5));
         PlayViewModel v = new PlayViewModel(game);
         System.out.println(v.isComplete());
+        System.out.println(v.getColors());
+        System.out.println(v.getColumnClues());
+        System.out.println(v.getRowClues());
         v.changeTool(SquareState.COLORED,Color.RED);
         v.makeMove(0,0);
         System.out.println(v.isComplete());
