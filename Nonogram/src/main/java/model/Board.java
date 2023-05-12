@@ -47,6 +47,7 @@ public class Board implements FileIO {
             }
             String everything = sb.toString();
             String[] separateValues = everything.split("\\s+");
+            System.out.println(separateValues);
             System.out.println("values: ");
             for(String str : separateValues) {
                 System.out.println(str);
@@ -56,6 +57,7 @@ public class Board implements FileIO {
             height = Integer.parseInt(separateValues[i++]);
             width = Integer.parseInt(separateValues[i++]);
 
+            board = new Square[height][width];
             for(int h = 0; h < height; h++) {
                 for(int w = 0; w < width; w++) {
                     String state = separateValues[i++];
@@ -64,6 +66,7 @@ public class Board implements FileIO {
                 }
             }
         } catch (Exception e) {
+            System.out.println(e);
             throw new CorruptedFile(path);
         }
     }

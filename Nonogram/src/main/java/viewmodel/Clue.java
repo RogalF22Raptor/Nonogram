@@ -27,8 +27,14 @@ public class Clue {
         return number.equals(((Clue) obj).number)&&color.equals(((Clue) obj).color);
     }
 
+    /**temporary change of toString method
     @Override
     public String toString() {
         return number.toString();
+    }**/
+    @Override
+    public String toString() {
+        return number.toString()+" "+color.toString();
     }
+
 }

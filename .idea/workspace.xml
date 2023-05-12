@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7692646-d313-40df-8fd1-e1cee265c52d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Nonogram/src/main/java/model/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nonogram/src/main/java/model/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nonogram/src/main/java/model/FileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nonogram/src/main/java/model/FileIO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nonogram/files/level1/correctColoring" beforeDir="false" afterPath="$PROJECT_DIR$/Nonogram/files/level1/correctColoring" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nonogram/files/level1/currentColoring" beforeDir="false" afterPath="$PROJECT_DIR$/Nonogram/files/level1/currentColoring" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +26,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2PSQsMh2cliMr27q14BMvCi7tW1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -34,13 +36,13 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/samboor/TCS/Object Oriented Programming/Programming Project/Nonogram",
+    "last_opened_file_path": "/home/progalski/Dokumenty/studia/TCS_PO/project/Nonogram/pom.xml",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
@@ -77,6 +79,8 @@
       <updated>1683448208976</updated>
       <workItem from="1683448209973" duration="7569000" />
       <workItem from="1683627993118" duration="581000" />
+      <workItem from="1683795563255" duration="877000" />
+      <workItem from="1683885810138" duration="60000" />
     </task>
     <servers />
   </component>
