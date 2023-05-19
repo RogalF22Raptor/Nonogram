@@ -15,8 +15,6 @@ import java.util.Set;
 public class PlayViewModel extends AbstractViewModel{
     public PlayViewModel(Game game){//TODO add loading from file
         this.game = game;
-
-        this.tool=new UnknownTool();
         this.rowClues=new ArrayList<>();
         for(int i=0;i<game.getCorrectColoring().getHeight();i++){
             this.rowClues.add(evaluateRow(game.getCorrectColoring(),i));
@@ -34,6 +32,7 @@ public class PlayViewModel extends AbstractViewModel{
             }
         }
         this.allowedColors=new ArrayList<>(c);
+        this.tool=new ColorTool(allowedColors.get(0));
     }
     public boolean isComplete(){
         for(int i=0;i<getCurrentColoring().getHeight();i++){
