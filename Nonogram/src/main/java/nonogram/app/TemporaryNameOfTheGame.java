@@ -2,7 +2,11 @@ package nonogram.app;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.*;
@@ -14,8 +18,10 @@ import java.io.IOException;
 public class TemporaryNameOfTheGame extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(TemporaryNameOfTheGame.class.getResource("guiView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Parent root = FXMLLoader.load(getClass().getResource("/nonogram/app/guiView.fxml"));
+        BorderPane borderPane = new BorderPane(root);
+        borderPane.setCenter(root);
+        Scene scene = new Scene(borderPane, 400, 400);
         stage.setTitle("Nonogram!");
         stage.setScene(scene);
         stage.show();
