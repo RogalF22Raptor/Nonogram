@@ -1,17 +1,21 @@
 package nonogram.app;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.When;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.*;
 import viewmodel.PlayViewModel;
+import viewmodel.ViewModel;
 
 import java.net.URL;
 import java.util.*;
@@ -27,8 +31,8 @@ public class GuiView implements Initializable {
     private HBox ColumnClues;
     @FXML
     private VBox RowClues;
-    private PlayViewModel v = new PlayViewModel(new Game(new RandomBoard(5,5),new Board(5,5)));
-    private int numRows = 5;
+    private ViewModel v = new PlayViewModel(new Game(new RandomBoard(10,5),new Board(10,5)));
+    private int numRows = 10;
     private int numColumns = 5;
 
     @Override
@@ -38,29 +42,34 @@ public class GuiView implements Initializable {
 
         addColumnClues();
         addRowClues();
-        updateGridPane();
+        createGridPane();
         addColors();
         addErase();
         addEmpty();
     }
     private void addColumnClues(){
         gridPane.getColumnConstraints().clear();
+        ColumnClues.setAlignment(Pos.CENTER);
+        ColumnClues.setSpacing(2);
         for (int col = 0; col < numColumns; col++) {
             ColumnConstraints columnConstraints = new ColumnConstraints();
             columnConstraints.setPercentWidth(100.0);
             columnConstraints.setHgrow(Priority.ALWAYS);
             gridPane.getColumnConstraints().add(columnConstraints);
             VBox sp = new VBox();
+            sp.setAlignment(Pos.BOTTOM_CENTER);
             for(int i=0;i<v.getColumnClues().get(col).size();i++) {
                 Rectangle r = new Rectangle(30, 30,Color.WHITE);
                 Text t = new Text(v.getColumnClues().get(col).get(i).getNumber().toString());
-                t.setFill(Color.BLACK);
+                t.setFill(v.getColumnClues().get(col).get(i).getColor());
                 sp.getChildren().add(new StackPane(r,t));
             }
             ColumnClues.getChildren().add(sp);
         }
     }
     private void addRowClues(){
+        RowClues.setAlignment(Pos.CENTER);
+        RowClues.setSpacing(2);
         gridPane.getRowConstraints().clear();
         for (int row = 0; row < numRows; row++) {
             RowConstraints rowConstraints = new RowConstraints();
@@ -68,10 +77,11 @@ public class GuiView implements Initializable {
             rowConstraints.setVgrow(Priority.ALWAYS);
             gridPane.getRowConstraints().add(rowConstraints);
             HBox sp = new HBox();
+            sp.setAlignment(Pos.CENTER_RIGHT);
             for(int i=0;i<v.getRowClues().get(row).size();i++) {
                 Rectangle r = new Rectangle(30, 30,Color.WHITE);
                 Text t = new Text(v.getRowClues().get(row).get(i).getNumber().toString());
-                t.setFill(Color.BLACK);
+                t.setFill(v.getRowClues().get(row).get(i).getColor());
                 sp.getChildren().add(new StackPane(r,t));
             }
             RowClues.getChildren().add(sp);
@@ -111,24 +121,31 @@ public class GuiView implements Initializable {
 
         return er;
     }
-    private void updateGridPane(){
+    private void createGridPane(){
+        gridPane.setHgap(2);
+        gridPane.setVgap(2);
+        gridPane.setAlignment(Pos.CENTER);
         for (int row = 0; row < gridPane.getRowCount(); row++) {
             for (int col = 0; col < numColumns; col++) {
                 Square x=v.getCurrentColoring().getSquare(row,col);
-                Node rectangle = new Rectangle(30, 30, x.getState()== SquareState.COLORED ? x.getColor() : Color.WHITE);
-                if(x.getState()==SquareState.EMPTY){
-                    rectangle=getImage("/nonogram/app/empty.png");
-                }
+                Rectangle rectangle = new Rectangle(30, 30, x.getState()== SquareState.COLORED ? x.getColor() : Color.WHITE);
+                Node image=getImage("/nonogram/app/empty.png");;
+                StackPane rec=new StackPane();
+                rec.getChildren().addAll(image,rectangle);
                 int finalRow = row;
                 int finalCol = col;
-                rectangle.setOnMouseClicked(event -> {
+                rec.setOnMouseClicked(event -> {
+                    Color color=Color.WHITE;
                     v.makeMove(finalRow, finalCol);
-                    updateGridPane();
+                    if(v.getCurrentColoring().getSquare(finalRow,finalCol).getState()==SquareState.COLORED) {
+                        color = v.getCurrentColoring().getSquare(finalRow, finalCol).getColor();
+                    }else if(v.getCurrentColoring().getSquare(finalRow,finalCol).getState()==SquareState.EMPTY){
+                        color=Color.TRANSPARENT;
+                    }
+                    rectangle.setFill(color);
                 });
-                gridPane.add(rectangle, col, row);
+                gridPane.add(rec, col, row);
             }
         }
     }
-
-
 }
