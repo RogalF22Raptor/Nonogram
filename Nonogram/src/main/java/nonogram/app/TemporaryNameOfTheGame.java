@@ -20,9 +20,10 @@ import java.io.IOException;
 public class TemporaryNameOfTheGame extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/nonogram/app/guiView.fxml"));
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/nonogram/app/guiView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/nonogram/app/CreateGuiView.fxml"));
         AnchorPane root = fxmlLoader.load();
-        Scene scene = new Scene(root, 400,600);
+        Scene scene = new Scene(root, 600,600);
         stage.setTitle("Nonogram!");
         stage.setScene(scene);
         stage.show();
