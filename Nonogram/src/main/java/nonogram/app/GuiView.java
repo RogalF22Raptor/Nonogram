@@ -14,13 +14,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.*;
+import view.ExitableView;
 import viewmodel.PlayViewModel;
 import viewmodel.ViewModel;
 
 import java.net.URL;
 import java.util.*;
 
-public class GuiView implements Initializable {
+public class GuiView extends ExitableView implements Initializable {
     @FXML
     protected GridPane fullGridPane;
     @FXML

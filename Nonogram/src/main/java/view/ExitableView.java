@@ -8,7 +8,9 @@ public class ExitableView extends VBox {
     protected ExitableView parentView;
     protected Scene scene;
 
-    ExitableView(ExitableView parentView) {
+    public ExitableView() {}
+
+    public ExitableView(ExitableView parentView) {
         this.parentView = parentView;
     }
 
@@ -22,5 +24,9 @@ public class ExitableView extends VBox {
 
     public void setScene(Scene scene) {
         this.scene = scene;
+    }
+
+    public void setParentView(ExitableView parentView) {
+        this.parentView = parentView;
     }
 }

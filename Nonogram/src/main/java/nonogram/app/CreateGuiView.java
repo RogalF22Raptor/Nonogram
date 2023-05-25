@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.*;
+import view.ExitableView;
 import viewmodel.CreateViewModel;
 import viewmodel.PlayViewModel;
 import viewmodel.ViewModel;
@@ -21,7 +22,7 @@ import viewmodel.ViewModel;
 import java.net.URL;
 import java.util.*;
 
-public class CreateGuiView implements Initializable {
+public class CreateGuiView extends ExitableView implements Initializable {
     @FXML
     private GridPane fullGridPane;
     @FXML
