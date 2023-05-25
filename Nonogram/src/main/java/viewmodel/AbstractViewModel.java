@@ -24,6 +24,7 @@ public abstract class AbstractViewModel implements ViewModel{
     public List<List<Clue>> getRowClues(){
         return rowClues;
     }
+
     public List<List<Clue>> getColumnClues(){
         return columnClues;
     }
@@ -47,6 +48,7 @@ public abstract class AbstractViewModel implements ViewModel{
                     b.getSquare(row,i).getColor().equals(c)) {i++;counter++;}
             if(i!=0) res.add(new Clue(counter,c));
         }
+        if(res.isEmpty())res.add(new Clue(0,Color.TRANSPARENT));
         return res;
     }
     protected List<Clue> evaluateCol(Board b,int col){
@@ -61,6 +63,7 @@ public abstract class AbstractViewModel implements ViewModel{
                     b.getSquare(i,col).getColor().equals(c)) {i++;counter++;}
             if(i!=0) res.add(new Clue(counter,c));
         }
+        if(res.isEmpty())res.add(new Clue(0,Color.TRANSPARENT));
         return res;
     }
     public void save(String path) throws IOException {

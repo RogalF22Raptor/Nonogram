@@ -1,5 +1,6 @@
 package viewmodel;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
 import model.Board;
 import model.Game;
@@ -32,7 +33,8 @@ public class PlayViewModel extends AbstractViewModel{
             }
         }
         this.allowedColors=new ArrayList<>(c);
-        this.tool=new ColorTool(allowedColors.get(0));
+        if(allowedColors.isEmpty()) this.tool=new EmptyTool();
+        else this.tool=new ColorTool(allowedColors.get(0));
     }
     public boolean isComplete(){
         for(int i=0;i<getCurrentColoring().getHeight();i++){

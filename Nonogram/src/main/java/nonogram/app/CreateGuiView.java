@@ -14,26 +14,27 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.*;
+import viewmodel.CreateViewModel;
 import viewmodel.PlayViewModel;
 import viewmodel.ViewModel;
 
 import java.net.URL;
 import java.util.*;
 
-public class GuiView implements Initializable {
+public class CreateGuiView implements Initializable {
     @FXML
-    protected GridPane fullGridPane;
+    private GridPane fullGridPane;
     @FXML
-    protected GridPane gridPane;
+    private GridPane gridPane;
     @FXML
-    protected HBox tools;
+    private HBox tools;
     @FXML
-    protected HBox ColumnClues;
+    private HBox ColumnClues;
     @FXML
-    protected VBox RowClues;
-    protected ViewModel v = new PlayViewModel(new Game(new RandomBoard(10,5),new Board(10,5)));
-    protected int numRows = 10;
-    protected int numColumns = 5;
+    private VBox RowClues;
+    private ViewModel v = new CreateViewModel(5,5);
+    private int numRows = 5;
+    private int numColumns = 5;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -47,7 +48,7 @@ public class GuiView implements Initializable {
         addErase();
         addEmpty();
     }
-    protected void addColumnClues(){
+    private void addColumnClues(){
         gridPane.getColumnConstraints().clear();
         ColumnClues.setAlignment(Pos.BOTTOM_CENTER);
         ColumnClues.setSpacing(2);
@@ -65,7 +66,7 @@ public class GuiView implements Initializable {
             ColumnClues.getChildren().add(sp);
         }
     }
-    protected void addRowClues(){
+    private void addRowClues(){
         RowClues.setAlignment(Pos.CENTER_RIGHT);
         RowClues.setSpacing(2);
         gridPane.getRowConstraints().clear();
@@ -83,7 +84,29 @@ public class GuiView implements Initializable {
             RowClues.getChildren().add(sp);
         }
     }
-    protected void addColors(){
+    private void updateRowClues(int row){
+        HBox sp = new HBox();
+        sp.setAlignment(Pos.CENTER_RIGHT);
+        for(int i=0;i<v.getRowClues().get(row).size();i++) {
+            Rectangle r = new Rectangle(30, 30,Color.WHITE);
+            Text t = new Text(v.getRowClues().get(row).get(i).getNumber().toString());
+            t.setFill(v.getRowClues().get(row).get(i).getColor());
+            sp.getChildren().add(new StackPane(r,t));
+        }
+        RowClues.getChildren().set(row,sp);
+    }
+    private void updateColClues(int col){
+        VBox sp = new VBox();
+        sp.setAlignment(Pos.BOTTOM_CENTER);
+        for(int i=0;i<v.getColumnClues().get(col).size();i++) {
+            Rectangle r = new Rectangle(30, 30,Color.WHITE);
+            Text t = new Text(v.getColumnClues().get(col).get(i).getNumber().toString());
+            t.setFill(v.getColumnClues().get(col).get(i).getColor());
+            sp.getChildren().add(new StackPane(r,t));
+        }
+        ColumnClues.getChildren().set(col,sp);
+    }
+    private void addColors(){
         for(int i=0;i<v.getColors().size();i++){
             Rectangle rectangle=new Rectangle(30,30,v.getColors().get(i));
             int place=i;
@@ -93,21 +116,21 @@ public class GuiView implements Initializable {
             tools.getChildren().add(rectangle);
         }
     }
-    protected void addErase(){
+    private void addErase(){
         Node er=getImage("/nonogram/app/erase.png");
         er.setOnMouseClicked(event ->{
             v.changeTool(SquareState.UNKNOWN,null);
         });
         tools.getChildren().add(er);
     }
-    protected void addEmpty(){
+    private void addEmpty(){
         Node er=getImage("/nonogram/app/empty.png");
         er.setOnMouseClicked(event ->{
             v.changeTool(SquareState.EMPTY,null);
         });
         tools.getChildren().add(er);
     }
-    protected Node getImage(String path){
+    private Node getImage(String path){
         Image iconImage=new Image(getClass().getResource(path).toExternalForm());
         ImageView iconView=new ImageView(iconImage);
         iconView.setFitWidth(30);
@@ -117,7 +140,7 @@ public class GuiView implements Initializable {
 
         return er;
     }
-    protected void createGridPane(){
+    private void createGridPane(){
         gridPane.setHgap(2);
         gridPane.setVgap(2);
         gridPane.setAlignment(Pos.CENTER);
@@ -139,6 +162,8 @@ public class GuiView implements Initializable {
                         color=Color.TRANSPARENT;
                     }
                     rectangle.setFill(color);
+                    updateRowClues(finalRow);
+                    updateColClues(finalCol);
                 });
                 gridPane.add(rec, col, row);
             }

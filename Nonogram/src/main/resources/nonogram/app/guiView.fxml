@@ -2,14 +2,9 @@
 
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nonogram.app.GuiView">
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nonogram.app.GuiView">
    <children>
-      <!-->
-      <GridPane fx:id="gridPane" gridLinesVisible="true" layoutX="10.0" layoutY="10.0" prefWidth="0.0">
-      </GridPane>
-      <HBox fx:id="tools" layoutX="10.0" layoutY="170.0" />
-      <-->
-      <GridPane fx:id="fullGridPane" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+      <GridPane fx:id="fullGridPane" maxHeight="Infinity" maxWidth="Infinity" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" >
         <columnConstraints>
           <ColumnConstraints  />
           <ColumnConstraints   />
