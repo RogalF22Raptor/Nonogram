@@ -13,15 +13,15 @@ import java.io.IOException;
 
 public class MainMenu extends ExitableView {
     public MainMenu() throws IOException {
-        super(null);
         setAlignment(Pos.CENTER);
 
         getChildren().add(new GraphicButton("src/main/resources/nonogram/app/playButton", () -> {
             try {
                 GuiView guiView = FXMLLoader.load(getClass().getResource("/nonogram/app/guiView.fxml"));
-                guiView.setParentView(this);
-                guiView.setScene(scene);
-                scene.setRoot(new BorderPane(guiView));
+                ExitableView newGame = new ExitableView(this, guiView);
+                newGame.setScene(scene);
+
+                scene.setRoot(newGame);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -30,9 +30,10 @@ public class MainMenu extends ExitableView {
         getChildren().add(new GraphicButton("src/main/resources/nonogram/app/edytorButton", () -> {
             try {
                 CreateGuiView createGuiView = FXMLLoader.load(getClass().getResource("/nonogram/app/CreateGuiView.fxml"));
-                createGuiView.setParentView(this);
-                createGuiView.setScene(scene);
-                scene.setRoot(createGuiView);
+                ExitableView newCreator = new ExitableView(this, createGuiView);
+                newCreator.setScene(scene);
+                
+                scene.setRoot(newCreator);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

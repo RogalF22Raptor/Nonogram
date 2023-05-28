@@ -21,7 +21,7 @@ import viewmodel.ViewModel;
 import java.net.URL;
 import java.util.*;
 
-public class GuiView extends ExitableView implements Initializable {
+public class GuiView extends VBox implements Initializable {
     @FXML
     protected GridPane fullGridPane;
     @FXML
