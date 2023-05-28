@@ -35,8 +35,6 @@ public class SelectLevel extends ExitableView {
         listOfLevels = new LinkedList<>(List.of(directories));
         listOfLevels.sort(String::compareTo);
 
-        System.out.println(listOfLevels);
-
         int it = 0;
         gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
