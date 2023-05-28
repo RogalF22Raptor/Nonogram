@@ -3,6 +3,7 @@ package view;
 import javafx.application.Platform;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.*;
@@ -23,12 +24,12 @@ public class ExitableView extends VBox {
         HBox.setHgrow(toolbarFilling, Priority.ALWAYS);
         toolBar.getItems().add(toolbarFilling);
 
-        GraphicButton exitButton = new GraphicButton("src/main/resources/nonogram/app/exitButton", this::exit, 200, 100);
+        GraphicButton exitButton = new GraphicButton("src/main/resources/nonogram/app/exitButton", this::exit, 120, 60);
         exitButton.setAlignment(Pos.CENTER);
         toolBar.getItems().add(exitButton);
     }
 
-    public ExitableView(ExitableView parentView, VBox content) throws FileNotFoundException {
+    public ExitableView(ExitableView parentView, Node content) throws FileNotFoundException {
         this();
         this.parentView = parentView;
         getChildren().add(content);

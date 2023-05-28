@@ -9,9 +9,12 @@ import javafx.scene.layout.VBox;
 import nonogram.app.CreateGuiView;
 import nonogram.app.GuiView;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class MainMenu extends ExitableView {
+    private final double buttonWidth = 225;
+    private final double buttonHeight = 150;
     public MainMenu() throws IOException {
         setAlignment(Pos.CENTER);
 
@@ -25,20 +28,32 @@ public class MainMenu extends ExitableView {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }, 300, 200));
+        }, buttonWidth, buttonHeight));
+
+        getChildren().add(new GraphicButton("src/main/resources/nonogram/app/levels", () -> {
+            try {
+                SelectLevel selectLevel = new SelectLevel("files/predefinedLevels");
+                selectLevel.setScene(scene);
+                selectLevel.setParentView(this);
+
+                scene.setRoot(selectLevel);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }, buttonWidth, buttonHeight));
 
         getChildren().add(new GraphicButton("src/main/resources/nonogram/app/edytorButton", () -> {
             try {
                 CreateGuiView createGuiView = FXMLLoader.load(getClass().getResource("/nonogram/app/CreateGuiView.fxml"));
                 ExitableView newCreator = new ExitableView(this, createGuiView);
                 newCreator.setScene(scene);
-                
+
                 scene.setRoot(newCreator);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }, 300, 200));
+        }, buttonWidth, buttonHeight));
 
-        getChildren().add(new GraphicButton("src/main/resources/nonogram/app/exitButton", this::exit, 300, 200));
+        getChildren().add(new GraphicButton("src/main/resources/nonogram/app/exitButton", this::exit, buttonWidth, buttonHeight));
     }
 }
