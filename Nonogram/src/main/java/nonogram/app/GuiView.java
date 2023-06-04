@@ -15,32 +15,58 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.*;
 import view.ExitableView;
+import viewmodel.CreateViewModel;
 import viewmodel.PlayViewModel;
 import viewmodel.ViewModel;
 
 import java.net.URL;
 import java.util.*;
 
-public class GuiView extends VBox implements Initializable {
-    @FXML
+public class GuiView extends VBox{
     protected GridPane fullGridPane;
-    @FXML
     protected GridPane gridPane;
-    @FXML
     protected HBox tools;
-    @FXML
-    protected HBox ColumnClues;
-    @FXML
-    protected VBox RowClues;
-    protected ViewModel v = new PlayViewModel(new Game(new RandomBoard(10,5),new Board(10,5)));
-    protected int numRows = 10;
-    protected int numColumns = 5;
+    protected HBox columnClues;
+    protected VBox rowClues;
+    protected ViewModel v;
+    protected int numRows;
+    protected int numColumns;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public GuiView(Board b){
+        fullGridPane = new GridPane();
+        v=new PlayViewModel(new Game(b,new Board(b.getHeight(),b.getWidth())));
+        fullGridPane.setMaxHeight(Double.POSITIVE_INFINITY);
+        fullGridPane.setMaxWidth(Double.POSITIVE_INFINITY);
+        fullGridPane.setAlignment(Pos.CENTER);
         fullGridPane.setVgap(20);
         fullGridPane.setHgap(20);
 
+        ColumnConstraints column1 = new ColumnConstraints();
+        ColumnConstraints column2 = new ColumnConstraints();
+        fullGridPane.getColumnConstraints().addAll(column1, column2);
+
+        RowConstraints row1 = new RowConstraints();
+        RowConstraints row2 = new RowConstraints();
+        RowConstraints row3 = new RowConstraints();
+        fullGridPane.getRowConstraints().addAll(row1, row2, row3);
+
+        gridPane = new GridPane();
+        gridPane.setGridLinesVisible(true);
+        fullGridPane.add(gridPane, 1, 1);
+
+        columnClues = new HBox();
+        fullGridPane.add(columnClues, 1, 0);
+
+        rowClues = new VBox();
+        fullGridPane.add(rowClues, 0, 1);
+
+        tools = new HBox();
+        fullGridPane.add(tools, 1, 2);
+
+        getChildren().add(fullGridPane);
+
+        numRows=v.getCurrentColoring().getHeight();
+        numColumns=v.getCurrentColoring().getWidth();
         addColumnClues();
         addRowClues();
         createGridPane();
@@ -48,10 +74,11 @@ public class GuiView extends VBox implements Initializable {
         addErase();
         addEmpty();
     }
+
     protected void addColumnClues(){
         gridPane.getColumnConstraints().clear();
-        ColumnClues.setAlignment(Pos.BOTTOM_CENTER);
-        ColumnClues.setSpacing(2);
+        columnClues.setAlignment(Pos.BOTTOM_CENTER);
+        columnClues.setSpacing(2);
         for (int col = 0; col < numColumns; col++) {
             ColumnConstraints columnConstraints = new ColumnConstraints();
             gridPane.getColumnConstraints().add(columnConstraints);
@@ -63,12 +90,12 @@ public class GuiView extends VBox implements Initializable {
                 t.setFill(v.getColumnClues().get(col).get(i).getColor());
                 sp.getChildren().add(new StackPane(r,t));
             }
-            ColumnClues.getChildren().add(sp);
+            columnClues.getChildren().add(sp);
         }
     }
     protected void addRowClues(){
-        RowClues.setAlignment(Pos.CENTER_RIGHT);
-        RowClues.setSpacing(2);
+        rowClues.setAlignment(Pos.CENTER_RIGHT);
+        rowClues.setSpacing(2);
         gridPane.getRowConstraints().clear();
         for (int row = 0; row < numRows; row++) {
             RowConstraints rowConstraints = new RowConstraints();
@@ -81,7 +108,7 @@ public class GuiView extends VBox implements Initializable {
                 t.setFill(v.getRowClues().get(row).get(i).getColor());
                 sp.getChildren().add(new StackPane(r,t));
             }
-            RowClues.getChildren().add(sp);
+            rowClues.getChildren().add(sp);
         }
     }
     protected void addColors(){

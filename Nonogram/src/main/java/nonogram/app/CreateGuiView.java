@@ -22,26 +22,52 @@ import viewmodel.ViewModel;
 import java.net.URL;
 import java.util.*;
 
-public class CreateGuiView extends VBox implements Initializable {
-    @FXML
+public class CreateGuiView extends VBox {
+
     private GridPane fullGridPane;
-    @FXML
     private GridPane gridPane;
-    @FXML
     private HBox tools;
-    @FXML
-    private HBox ColumnClues;
-    @FXML
-    private VBox RowClues;
-    private ViewModel v = new CreateViewModel(5,5);
+    private HBox columnClues;
+    private VBox rowClues;
+    private ViewModel v;
     private int numRows = 5;
     private int numColumns = 5;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public CreateGuiView(int h,int w){
+        fullGridPane = new GridPane();
+        v=new CreateViewModel(h,w);
+        fullGridPane.setMaxHeight(Double.POSITIVE_INFINITY);
+        fullGridPane.setMaxWidth(Double.POSITIVE_INFINITY);
+        fullGridPane.setAlignment(Pos.CENTER);
         fullGridPane.setVgap(20);
         fullGridPane.setHgap(20);
 
+        ColumnConstraints column1 = new ColumnConstraints();
+        ColumnConstraints column2 = new ColumnConstraints();
+        fullGridPane.getColumnConstraints().addAll(column1, column2);
+
+        RowConstraints row1 = new RowConstraints();
+        RowConstraints row2 = new RowConstraints();
+        RowConstraints row3 = new RowConstraints();
+        fullGridPane.getRowConstraints().addAll(row1, row2, row3);
+
+        gridPane = new GridPane();
+        gridPane.setGridLinesVisible(true);
+        fullGridPane.add(gridPane, 1, 1);
+
+        columnClues = new HBox();
+        fullGridPane.add(columnClues, 1, 0);
+
+        rowClues = new VBox();
+        fullGridPane.add(rowClues, 0, 1);
+
+        tools = new HBox();
+        fullGridPane.add(tools, 1, 2);
+
+
+
+        getChildren().add(fullGridPane);
+        numRows=v.getCurrentColoring().getHeight();
+        numColumns=v.getCurrentColoring().getWidth();
         addColumnClues();
         addRowClues();
         createGridPane();
@@ -49,10 +75,11 @@ public class CreateGuiView extends VBox implements Initializable {
         addErase();
         addEmpty();
     }
+
     private void addColumnClues(){
         gridPane.getColumnConstraints().clear();
-        ColumnClues.setAlignment(Pos.BOTTOM_CENTER);
-        ColumnClues.setSpacing(2);
+        columnClues.setAlignment(Pos.BOTTOM_CENTER);
+        columnClues.setSpacing(2);
         for (int col = 0; col < numColumns; col++) {
             ColumnConstraints columnConstraints = new ColumnConstraints();
             gridPane.getColumnConstraints().add(columnConstraints);
@@ -64,12 +91,12 @@ public class CreateGuiView extends VBox implements Initializable {
                 t.setFill(v.getColumnClues().get(col).get(i).getColor());
                 sp.getChildren().add(new StackPane(r,t));
             }
-            ColumnClues.getChildren().add(sp);
+            columnClues.getChildren().add(sp);
         }
     }
     private void addRowClues(){
-        RowClues.setAlignment(Pos.CENTER_RIGHT);
-        RowClues.setSpacing(2);
+        rowClues.setAlignment(Pos.CENTER_RIGHT);
+        rowClues.setSpacing(2);
         gridPane.getRowConstraints().clear();
         for (int row = 0; row < numRows; row++) {
             RowConstraints rowConstraints = new RowConstraints();
@@ -82,7 +109,7 @@ public class CreateGuiView extends VBox implements Initializable {
                 t.setFill(v.getRowClues().get(row).get(i).getColor());
                 sp.getChildren().add(new StackPane(r,t));
             }
-            RowClues.getChildren().add(sp);
+            rowClues.getChildren().add(sp);
         }
     }
     private void updateRowClues(int row){
@@ -94,7 +121,7 @@ public class CreateGuiView extends VBox implements Initializable {
             t.setFill(v.getRowClues().get(row).get(i).getColor());
             sp.getChildren().add(new StackPane(r,t));
         }
-        RowClues.getChildren().set(row,sp);
+        rowClues.getChildren().set(row,sp);
     }
     private void updateColClues(int col){
         VBox sp = new VBox();
@@ -105,7 +132,7 @@ public class CreateGuiView extends VBox implements Initializable {
             t.setFill(v.getColumnClues().get(col).get(i).getColor());
             sp.getChildren().add(new StackPane(r,t));
         }
-        ColumnClues.getChildren().set(col,sp);
+        columnClues.getChildren().set(col,sp);
     }
     private void addColors(){
         for(int i=0;i<v.getColors().size();i++){

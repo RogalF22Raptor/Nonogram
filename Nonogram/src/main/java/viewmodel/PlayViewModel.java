@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 public class PlayViewModel extends AbstractViewModel{
-    public PlayViewModel(Game game){//TODO add loading from file
+    public PlayViewModel(Game game){
         this.game = game;
         this.rowClues=new ArrayList<>();
         for(int i=0;i<game.getCorrectColoring().getHeight();i++){
