@@ -28,6 +28,7 @@ public class TemporaryNameOfTheGame extends Application {
 
         stage.setTitle("Nonogram!");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

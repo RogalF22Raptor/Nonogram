@@ -13,7 +13,7 @@ import model.SquareState;
 import viewmodel.CreateViewModel;
 import viewmodel.ViewModel;
 
-public class AbstractGuiView extends VBox{
+public class AbstractGuiView extends VBox {
     protected GridPane fullGridPane;
     protected GridPane gridPane;
     protected HBox tools;
@@ -146,5 +146,7 @@ public class AbstractGuiView extends VBox{
         return er;
     }
 
-
+    public ViewModel getV() {
+        return v;
+    }
 }

@@ -9,6 +9,9 @@ import javafx.scene.shape.Rectangle;
 import model.*;
 import viewmodel.CreateViewModel;
 
+import java.io.File;
+import java.io.IOException;
+
 
 public class CreateGuiView extends AbstractGuiView {
 
@@ -53,5 +56,4 @@ public class CreateGuiView extends AbstractGuiView {
             }
         }
     }
-
 }

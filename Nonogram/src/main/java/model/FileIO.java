@@ -18,7 +18,7 @@ class CorruptedFile extends RuntimeException {
 }
 
 public interface FileIO {
-    void readFromFile(String path) throws CorruptedFile;
+    void readFromFile(String path);
 
     void saveToFile(String path) throws IOException;
 }
