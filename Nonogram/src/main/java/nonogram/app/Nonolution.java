@@ -2,6 +2,7 @@ package nonogram.app;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import view.MainMenu;
 
@@ -16,7 +17,7 @@ public class Nonolution extends Application {
 
         mainMenu.setScene(scene);
 
-        stage.setTitle("Nonogram!");
+        stage.setTitle("Nonolution");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

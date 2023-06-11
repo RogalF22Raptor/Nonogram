@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CreateViewModel extends AbstractViewModel{
-    //TODO: all xdd
 
     public CreateViewModel(int h, int w){
         game=new Game(new Board(h,w),new Board(h,w));
@@ -31,6 +30,8 @@ public class CreateViewModel extends AbstractViewModel{
         super.makeMove(row, col);
         rowClues.set(row,evaluateRow(getCurrentColoring(),row));
         columnClues.set(col,evaluateCol(getCurrentColoring(),col));
+        observer.notify(row,col,game.getCurrentColoring().getSquare(row,col).getState(),
+                game.getCurrentColoring().getSquare(row,col).getColor());
     }
 
 }

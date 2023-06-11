@@ -2,9 +2,13 @@ package nonogram.app;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import model.*;
 import viewmodel.PlayViewModel;
 
@@ -25,6 +29,15 @@ public class GuiView extends AbstractGuiView{
         addEmpty();
     }
 
+    @Override
+    public void notify(int x, int y, SquareState s, Color c) {
+        super.notify(x, y, s, c);
+        if(((PlayViewModel)v).isComplete()){
+            Label won=new Label("YOU WON!!!");
+            won.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+            fullGridPane.add(won,1,3);
+        }
+    }
 
     protected void createGridPane(){
         gridPane.setHgap(2);
@@ -40,16 +53,6 @@ public class GuiView extends AbstractGuiView{
                 int finalCol = col;
                 rec.setOnMouseClicked(event -> {
                     v.makeMove(finalRow,finalCol);
-                    /*Color color=Color.WHITE;
-                    v.makeMove(finalRow, finalCol);
-                    if(v.getCurrentColoring().getSquare(finalRow,finalCol).getState()==SquareState.COLORED) {
-                        color = v.getCurrentColoring().getSquare(finalRow, finalCol).getColor();
-                    }else if(v.getCurrentColoring().getSquare(finalRow,finalCol).getState()==SquareState.EMPTY){
-                        color=Color.TRANSPARENT;
-                    }
-                    rectangle.setFill(color);
-                    updateRowClues(finalRow);
-                    updateColClues(finalCol);*/
                 });
                 gridPane.add(rec, col, row);
             }
