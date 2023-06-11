@@ -8,12 +8,10 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import model.Square;
 import model.SquareState;
-import viewmodel.CreateViewModel;
 import viewmodel.ViewModel;
 
-public class AbstractGuiView extends VBox {
+public class AbstractGuiView extends VBox implements IGuiView {
     protected GridPane fullGridPane;
     protected GridPane gridPane;
     protected HBox tools;
@@ -145,7 +143,21 @@ public class AbstractGuiView extends VBox {
 
         return er;
     }
-
+    public void notify(int x,int y,SquareState s,Color c){
+        Node node = gridPane.getChildren().get(y + x * numColumns+1);
+        if (node instanceof StackPane rectangle) {
+            Node nn = rectangle.getChildren().get(1);
+            if(nn instanceof Rectangle rr){
+                if (s == SquareState.COLORED) {
+                    rr.setFill(c);
+                } else if(s==SquareState.EMPTY){
+                    rr.setFill(Color.TRANSPARENT);
+                }else{
+                    rr.setFill(Color.WHITE);
+                }
+            }
+        }
+    }
     public ViewModel getV() {
         return v;
     }

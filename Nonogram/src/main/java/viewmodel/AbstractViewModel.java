@@ -4,17 +4,22 @@ import javafx.scene.paint.Color;
 import model.Board;
 import model.Game;
 import model.SquareState;
+import nonogram.app.IGuiView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractViewModel implements ViewModel{
+    protected IGuiView observer;
     protected Game game;
     protected Tool tool;
     protected List<Color> allowedColors;
     protected List<List<Clue>> rowClues;
     protected List<List<Clue>> columnClues;
+    public void subscribe(IGuiView obs){
+        observer=obs;
+    }
     public Board getCurrentColoring(){
         return game.getCurrentColoring();
     }
@@ -30,6 +35,8 @@ public abstract class AbstractViewModel implements ViewModel{
     }
     public void makeMove(int row, int col){
         tool.apply(game.getCurrentColoring().getSquare(row,col));
+        observer.notify(row,col,game.getCurrentColoring().getSquare(row,col).getState(),
+                game.getCurrentColoring().getSquare(row,col).getColor());
     }
     public void changeTool(SquareState s, Color c){
         if(s==SquareState.COLORED) tool=new ColorTool(c);
@@ -69,4 +76,5 @@ public abstract class AbstractViewModel implements ViewModel{
     public void save(String path) throws IOException {
         game.saveToFile(path);//TODO Something xdd
     }
+
 }

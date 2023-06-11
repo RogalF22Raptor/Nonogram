@@ -3,6 +3,7 @@ package viewmodel;
 import javafx.scene.paint.Color;
 import model.Board;
 import model.SquareState;
+import nonogram.app.IGuiView;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,5 +16,5 @@ public interface ViewModel {
     public List<List<Clue>> getRowClues();
     public List<List<Clue>> getColumnClues();
     public void save(String path) throws IOException;
-
+    public void subscribe(IGuiView i);
 }
