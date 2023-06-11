@@ -1,4 +1,4 @@
-package nonogram.app;
+package view;
 
 import javafx.scene.paint.Color;
 import model.SquareState;

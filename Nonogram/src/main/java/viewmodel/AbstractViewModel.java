@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 import model.Board;
 import model.Game;
 import model.SquareState;
-import nonogram.app.IGuiView;
+import view.IGuiView;
 
 import java.io.IOException;
 import java.util.ArrayList;

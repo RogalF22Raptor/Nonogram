@@ -2,7 +2,6 @@ module nonogram.nonogram {
     requires javafx.controls;
     requires javafx.fxml;
 
-
-    opens nonogram.app to javafx.fxml;
-    exports nonogram.app;
+    exports view;
+    opens view to javafx.fxml;
 }

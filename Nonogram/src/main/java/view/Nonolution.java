@@ -1,4 +1,4 @@
-package nonogram.app;
+package view;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

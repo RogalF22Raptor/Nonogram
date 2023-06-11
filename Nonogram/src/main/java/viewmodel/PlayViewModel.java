@@ -42,7 +42,7 @@ public class PlayViewModel extends AbstractViewModel{
                 return false;
             }
         }
-        for(int i=0;i<getCurrentColoring().getHeight();i++){
+        for(int i=0;i<getCurrentColoring().getWidth();i++){
             if(!getColumnClues().get(i).equals(evaluateCol(getCurrentColoring(),i))){
                 return false;
             }

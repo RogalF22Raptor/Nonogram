@@ -1,4 +1,4 @@
-package nonogram.app;
+package view;
 
 
 import javafx.geometry.Pos;
@@ -7,10 +7,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.*;
+import view.AbstractGuiView;
 import viewmodel.CreateViewModel;
-
-import java.io.File;
-import java.io.IOException;
 
 
 public class CreateGuiView extends AbstractGuiView {

@@ -1,14 +1,11 @@
 package view;
 
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import model.FileIO;
-import nonogram.app.CreateGuiView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package nonogram.app;
+package view;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;

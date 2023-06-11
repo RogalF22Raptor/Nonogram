@@ -1,4 +1,4 @@
-package nonogram.app;
+package view;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -10,10 +10,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import model.*;
+import view.AbstractGuiView;
 import viewmodel.PlayViewModel;
 
 
-public class GuiView extends AbstractGuiView{
+public class GuiView extends AbstractGuiView {
 
     public GuiView(Board b){
         v=new PlayViewModel(new Game(b,new Board(b.getHeight(),b.getWidth())));

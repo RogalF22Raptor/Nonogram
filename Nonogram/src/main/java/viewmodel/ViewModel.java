@@ -3,7 +3,7 @@ package viewmodel;
 import javafx.scene.paint.Color;
 import model.Board;
 import model.SquareState;
-import nonogram.app.IGuiView;
+import view.IGuiView;
 
 import java.io.IOException;
 import java.util.List;
