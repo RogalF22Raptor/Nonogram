@@ -40,10 +40,14 @@ public class MainMenu extends ExitableView {
 
         getChildren().add(new GraphicButton("src/main/resources/nonogram/app/edytorButton", () -> {
             try {
-                CreateGuiView createGuiView = new CreateGuiView(6,6);
+                SelectSize selectSize=new SelectSize();
+                selectSize.setScene(scene);
+                selectSize.setParentView(this);
+                scene.setRoot(selectSize);
+                /*CreateGuiView createGuiView = new CreateGuiView(6,6);
                 BackupableView newCreator = new BackupableView(this, createGuiView);
                 newCreator.setScene(scene);
-                scene.setRoot(newCreator);
+                scene.setRoot(newCreator);*/
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
