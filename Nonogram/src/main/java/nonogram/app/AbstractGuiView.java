@@ -1,82 +1,79 @@
 package nonogram.app;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.When;
-import javafx.fxml.Initializable;
-import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import model.*;
-import viewmodel.PlayViewModel;
+import model.Square;
+import model.SquareState;
+import viewmodel.CreateViewModel;
 import viewmodel.ViewModel;
 
-import java.net.URL;
-import java.util.*;
-
-public class GuiView implements Initializable {
-    @FXML
+public class AbstractGuiView extends VBox implements IGuiView {
     protected GridPane fullGridPane;
-    @FXML
     protected GridPane gridPane;
-    @FXML
     protected HBox tools;
-    @FXML
-    protected HBox ColumnClues;
-    @FXML
-    protected VBox RowClues;
-    protected ViewModel v = new PlayViewModel(new Game(new RandomBoard(10,5),new Board(10,5)));
-    protected int numRows = 10;
+    protected HBox columnClues;
+    protected VBox rowClues;
+    protected ViewModel v;
+    protected int numRows = 5;
     protected int numColumns = 5;
+    public AbstractGuiView(){
+        fullGridPane = new GridPane();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+        fullGridPane.setMaxHeight(Double.POSITIVE_INFINITY);
+        fullGridPane.setMaxWidth(Double.POSITIVE_INFINITY);
+        fullGridPane.setAlignment(Pos.CENTER);
         fullGridPane.setVgap(20);
         fullGridPane.setHgap(20);
 
-<<<<<<< Updated upstream
-=======
-    public GuiView(Board b){
-        v=new PlayViewModel(new Game(b,new Board(b.getHeight(),b.getWidth())));
-        v.subscribe(this);
-        getChildren().add(fullGridPane);
-        numRows=v.getCurrentColoring().getHeight();
-        numColumns=v.getCurrentColoring().getWidth();
->>>>>>> Stashed changes
-        addColumnClues();
-        addRowClues();
-        createGridPane();
-        addColors();
-        addErase();
-        addEmpty();
+        ColumnConstraints column1 = new ColumnConstraints();
+        ColumnConstraints column2 = new ColumnConstraints();
+        fullGridPane.getColumnConstraints().addAll(column1, column2);
+
+        RowConstraints row1 = new RowConstraints();
+        RowConstraints row2 = new RowConstraints();
+        RowConstraints row3 = new RowConstraints();
+        fullGridPane.getRowConstraints().addAll(row1, row2, row3);
+
+        gridPane = new GridPane();
+        gridPane.setGridLinesVisible(true);
+        fullGridPane.add(gridPane, 1, 1);
+
+        columnClues = new HBox();
+        fullGridPane.add(columnClues, 1, 0);
+
+        rowClues = new VBox();
+        fullGridPane.add(rowClues, 0, 1);
+
+        tools = new HBox();
+        fullGridPane.add(tools, 1, 2);
     }
+
     protected void addColumnClues(){
-        gridPane.getColumnConstraints().clear();
-        ColumnClues.setAlignment(Pos.BOTTOM_CENTER);
-        ColumnClues.setSpacing(2);
+        columnClues.setAlignment(Pos.BOTTOM_CENTER);
+        columnClues.setSpacing(2);
         for (int col = 0; col < numColumns; col++) {
             ColumnConstraints columnConstraints = new ColumnConstraints();
             gridPane.getColumnConstraints().add(columnConstraints);
             VBox sp = new VBox();
             sp.setAlignment(Pos.BOTTOM_CENTER);
             for(int i=0;i<v.getColumnClues().get(col).size();i++) {
-                Rectangle r = new Rectangle(30, 30,Color.WHITE);
+                Rectangle r = new Rectangle(30, 30, Color.WHITE);
                 Text t = new Text(v.getColumnClues().get(col).get(i).getNumber().toString());
                 t.setFill(v.getColumnClues().get(col).get(i).getColor());
                 sp.getChildren().add(new StackPane(r,t));
             }
-            ColumnClues.getChildren().add(sp);
+            columnClues.getChildren().add(sp);
         }
     }
     protected void addRowClues(){
-        RowClues.setAlignment(Pos.CENTER_RIGHT);
-        RowClues.setSpacing(2);
+        rowClues.setAlignment(Pos.CENTER_RIGHT);
+        rowClues.setSpacing(2);
         gridPane.getRowConstraints().clear();
         for (int row = 0; row < numRows; row++) {
             RowConstraints rowConstraints = new RowConstraints();
@@ -89,8 +86,30 @@ public class GuiView implements Initializable {
                 t.setFill(v.getRowClues().get(row).get(i).getColor());
                 sp.getChildren().add(new StackPane(r,t));
             }
-            RowClues.getChildren().add(sp);
+            rowClues.getChildren().add(sp);
         }
+    }
+    protected void updateRowClues(int row){
+        HBox sp = new HBox();
+        sp.setAlignment(Pos.CENTER_RIGHT);
+        for(int i=0;i<v.getRowClues().get(row).size();i++) {
+            Rectangle r = new Rectangle(30, 30,Color.WHITE);
+            Text t = new Text(v.getRowClues().get(row).get(i).getNumber().toString());
+            t.setFill(v.getRowClues().get(row).get(i).getColor());
+            sp.getChildren().add(new StackPane(r,t));
+        }
+        rowClues.getChildren().set(row,sp);
+    }
+    protected void updateColClues(int col){
+        VBox sp = new VBox();
+        sp.setAlignment(Pos.BOTTOM_CENTER);
+        for(int i=0;i<v.getColumnClues().get(col).size();i++) {
+            Rectangle r = new Rectangle(30, 30,Color.WHITE);
+            Text t = new Text(v.getColumnClues().get(col).get(i).getNumber().toString());
+            t.setFill(v.getColumnClues().get(col).get(i).getColor());
+            sp.getChildren().add(new StackPane(r,t));
+        }
+        columnClues.getChildren().set(col,sp);
     }
     protected void addColors(){
         for(int i=0;i<v.getColors().size();i++){
@@ -126,33 +145,17 @@ public class GuiView implements Initializable {
 
         return er;
     }
-    protected void createGridPane(){
-        gridPane.setHgap(2);
-        gridPane.setVgap(2);
-        gridPane.setAlignment(Pos.CENTER);
-        for (int row = 0; row < gridPane.getRowCount(); row++) {
-            for (int col = 0; col < numColumns; col++) {
-                Rectangle rectangle = new Rectangle(30, 30, Color.WHITE);
-                Node image=getImage("/nonogram/app/empty.png");;
-                StackPane rec=new StackPane();
-                rec.getChildren().addAll(image,rectangle);
-                int finalRow = row;
-                int finalCol = col;
-                rec.setOnMouseClicked(event -> {
-                    v.makeMove(finalRow,finalCol);
-                    /*Color color=Color.WHITE;
-                    v.makeMove(finalRow, finalCol);
-                    if(v.getCurrentColoring().getSquare(finalRow,finalCol).getState()==SquareState.COLORED) {
-                        color = v.getCurrentColoring().getSquare(finalRow, finalCol).getColor();
-                    }else if(v.getCurrentColoring().getSquare(finalRow,finalCol).getState()==SquareState.EMPTY){
-                        color=Color.TRANSPARENT;
-                    }
-                    rectangle.setFill(color);
-                    updateRowClues(finalRow);
-                    updateColClues(finalCol);*/
-                });
-                gridPane.add(rec, col, row);
+    public void notify(int x,int y,SquareState s,Color c){
+        Node node = gridPane.getChildren().get(x + y * numColumns);
+        if (node instanceof Rectangle rectangle) {
+            if (s == SquareState.COLORED) {
+                rectangle.setFill(c);
+            } else {
+                rectangle.setFill(Color.TRANSPARENT);
             }
         }
+    }
+    public ViewModel getV() {
+        return v;
     }
 }
