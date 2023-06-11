@@ -1,9 +1,7 @@
 package view;
 
 import javafx.geometry.Pos;
-import model.RandomBoard;
-import nonogram.app.CreateGuiView;
-import nonogram.app.GuiView;
+import javafx.scene.layout.VBox;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,9 +10,11 @@ public class MainMenu extends ExitableView {
     private final double buttonWidth = 225;
     private final double buttonHeight = 150;
     public MainMenu() throws IOException {
-        setAlignment(Pos.CENTER);
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+        getChildren().add(vBox);
 
-        getChildren().add(new GraphicButton("src/main/resources/nonogram/app/playButton", () -> {
+        vBox.getChildren().add(new GraphicButton("src/main/resources/nonogram/app/playButton", () -> {
             try {
                 SelectLevel selectLevel = new SelectLevel("files/predefinedLevels");
                 selectLevel.setScene(scene);
@@ -26,7 +26,7 @@ public class MainMenu extends ExitableView {
             }
         }, buttonWidth, buttonHeight));
 
-        getChildren().add(new GraphicButton("src/main/resources/nonogram/app/levels", () -> {
+        vBox.getChildren().add(new GraphicButton("src/main/resources/nonogram/app/levels", () -> {
             try {
                 SelectLevel selectLevel = new SelectLevel("files/userLevels");
                 selectLevel.setScene(scene);
@@ -38,21 +38,17 @@ public class MainMenu extends ExitableView {
             }
         }, buttonWidth, buttonHeight));
 
-        getChildren().add(new GraphicButton("src/main/resources/nonogram/app/edytorButton", () -> {
+        vBox.getChildren().add(new GraphicButton("src/main/resources/nonogram/app/creatorButton", () -> {
             try {
                 SelectSize selectSize=new SelectSize();
                 selectSize.setScene(scene);
                 selectSize.setParentView(this);
                 scene.setRoot(selectSize);
-                /*CreateGuiView createGuiView = new CreateGuiView(6,6);
-                BackupableView newCreator = new BackupableView(this, createGuiView);
-                newCreator.setScene(scene);
-                scene.setRoot(newCreator);*/
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }, buttonWidth, buttonHeight));
 
-        getChildren().add(new GraphicButton("src/main/resources/nonogram/app/exitButton", this::exit, buttonWidth, buttonHeight));
+        vBox.getChildren().add(new GraphicButton("src/main/resources/nonogram/app/exitButton", this::exit, buttonWidth, buttonHeight));
     }
 }

@@ -5,10 +5,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ToolBar;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.io.FileNotFoundException;
 
@@ -19,6 +17,7 @@ public class ExitableView extends VBox {
 
     public ExitableView() throws FileNotFoundException {
         toolBar = new ToolBar();
+        toolBar.setBackground(Background.fill(Color.DARKTURQUOISE));
         getChildren().add(toolBar);
 
         Pane toolbarFilling = new Pane();
@@ -28,6 +27,8 @@ public class ExitableView extends VBox {
         GraphicButton exitButton = new GraphicButton("src/main/resources/nonogram/app/exitButton", this::exit, 120, 60);
         exitButton.setAlignment(Pos.CENTER);
         toolBar.getItems().add(exitButton);
+
+        setBackground(Background.fill(Color.LIGHTCYAN));
     }
 
     public ExitableView(ExitableView parentView, Node content) throws FileNotFoundException {

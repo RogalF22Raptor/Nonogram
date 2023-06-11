@@ -11,7 +11,9 @@ public class Nonolution extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         MainMenu mainMenu = new MainMenu();
+
         Scene scene = new Scene(mainMenu, 1280, 720);
+
         mainMenu.setScene(scene);
 
         stage.setTitle("Nonogram!");

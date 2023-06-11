@@ -47,11 +47,6 @@ public class Board implements FileIO {
             }
             String everything = sb.toString();
             String[] separateValues = everything.split("\\s+");
-            System.out.println(separateValues);
-            System.out.println("values: ");
-            for(String str : separateValues) {
-                System.out.println(str);
-            }
 
             int i = 0;
             height = Integer.parseInt(separateValues[i++]);

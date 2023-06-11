@@ -22,7 +22,6 @@ public class SelectLevel extends ExitableView {
     private final int maxCntOfLevels = 15;
 
     private final List<String> listOfLevels;
-    private GridPane gridPane;
 
     private GraphicButton createLevelPlayButton(String name_of_level) throws FileNotFoundException {
         return new GraphicButton("src/main/resources/nonogram/app/playButton", () -> {
@@ -45,7 +44,7 @@ public class SelectLevel extends ExitableView {
         listOfLevels.sort(String::compareTo);
 
         int it = 0;
-        gridPane = new GridPane();
+        GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         for(String name : listOfLevels) {
             VBox level = new VBox();
